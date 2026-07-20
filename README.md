@@ -155,9 +155,6 @@ Drive the robot around and confirm the map stays fixed while only the robot's po
 | ![Correct initial pose](Screenshots/giving_right_position.png) | **Localization — correct pose estimate:** laser scan lines up with the map walls once the correct pose is given. |
 | ![Pose estimates sent](Screenshots/poses_sent.png) | Terminal log of the `2D Pose Estimate` events sent to `slam_toolbox` (position/orientation printed for each estimate). |
 
-*(Note: the filenames above contain spaces and are URL-encoded as `%20` for the Markdown
-links to render correctly on GitHub.)*
-
 ## Demo video
 
 Screen recording of the mapping run (driving the robot with teleop while the map builds live
