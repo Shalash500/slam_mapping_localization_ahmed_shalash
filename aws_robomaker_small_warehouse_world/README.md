@@ -18,70 +18,14 @@ This Gazebo world is well suited for organizations who are building and testing 
 | **aws_robomaker_warehouse_PalletJackB_01**    | ![Model: Pallet Jack](docs/images/models_lift.png)
 | **aws_robomaker_warehouse_ShelfD_01, aws_robomaker_warehouse_ShelfE_01, aws_robomaker_warehouse_ShelfF_01**    | ![Model: Pallet Jack](docs/images/models_shelves.png)
 
-## Building and Launching the Gazebo World with your ROS Applications
+## Acknowledgments
 
-* Create or update a **.rosinstall** file in the root directory of your ROS workspace. Add the following line to **.rosintall**:
-    ```
-    - git: {local-name: src/aws-robomaker-small-warehouse-world, uri: 'https://github.com/aws-robotics/aws-robomaker-small-warehouse-world.git', version: ros2}
-    ```
-* Change the directory to your ROS workspace and run `rosws update`
+This project uses the **AWS RoboMaker Small Warehouse World** environment originally developed by the AWS Robotics team.
 
-* Add the following include to the ROS2 launch file you are using:
-    ```python
-    import os
+**Original Repository (ROS 1):**
+https://github.com/aws-robotics/aws-robomaker-small-warehouse-world
 
-    from ament_index_python.packages import get_package_share_directory
-    from launch import LaunchDescription
-    from launch.actions import IncludeLaunchDescription
-    from launch.launch_description_sources import PythonLaunchDescriptionSource
+The original repository was designed for **ROS 1** and Gazebo. Since this project is based on **ROS 2 Jazzy**, the warehouse world was adapted to be compatible with ROS 2. The migration and required modifications were performed with the assistance of **Claude AI**, while the integration, testing, and use within this project were completed as part of this work.
 
-    def generate_launch_description():
-        warehouse_pkg_dir = get_package_share_directory('aws_robomaker_small_warehouse_world')
-        warehouse_launch_path = os.path.join(warehouse_pkg_dir, 'launch')
+Credit goes to the AWS Robotics team for creating and openly sharing the original warehouse environment.
 
-        warehouse_world_cmd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([warehouse_launch_path, '/small_warehouse.launch.py'])
-        )
-
-        ld = LaunchDescription()
-
-        ld.add_action(warehouse_world_cmd)
-
-        return ld
-    ```
-
-* Build your application using `colcon`
-    ```bash
-    rosws update
-    rosdep install --from-paths . --ignore-src -r -y
-    colcon build
-    ```
-
-## Example: Running this world directly in Gazebo without a ROS application
-
-To open this world in Gazebo, change the directory to your ROS workspace root folder and run:
-
-```bash
-export GAZEBO_MODEL_PATH=`pwd`/models
-gazebo worlds/small_warehouse/small_warehouse.world
-```
-
-## Example: Running this world directly using ROS without a simulated robot
-
-To launch this base Gazebo world without a robot, clone this repository and run the following commands. **Note: ROS and gazebo must already be installed on the host.** 
-
-```bash
-# build for ROS2
-rosdep install --from-paths . --ignore-src -r -y
-colcon build
-
-# run in ROS2
-source install/setup.sh
-ros2 launch aws_robomaker_small_warehouse_world small_warehouse.launch.py
-```
-
-**Visit the [AWS RoboMaker website](https://aws.amazon.com/robomaker/) to learn more about building intelligent robotic applications with Amazon Web Services.**
-
-## Notes
-- Lighting might vary on different system(s) (e.g brighter on system without CPU and darker on system with GPU)
-- Adjust lighting parameters in .world file as you need
