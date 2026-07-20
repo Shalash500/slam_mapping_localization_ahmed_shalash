@@ -38,27 +38,6 @@ slam_mapping_localization_ahmed_shalash/
 └── README.md
 ```
 
-## Prerequisites
-
-- Ubuntu + ROS 2 (developed with **Gazebo Harmonic** via `ros_gz` — adjust the `<ros-distro>`
-  placeholder below to your installed distro, e.g. `jazzy`, `humble`).
-- `colcon` and the standard ROS 2 dev tools.
-- The following packages are used by the launch files but are **not currently pinned in the
-  `package.xml` files**, so install them manually before building:
-
-```bash
-sudo apt update
-sudo apt install \
-  ros-<ros-distro>-ros-gz \
-  ros-<ros-distro>-xacro \
-  ros-<ros-distro>-robot-state-publisher \
-  ros-<ros-distro>-joint-state-publisher-gui \
-  ros-<ros-distro>-rviz2 \
-  ros-<ros-distro>-slam-toolbox \
-  ros-<ros-distro>-teleop-twist-keyboard \
-  ros-<ros-distro>-nav2-map-server
-```
-
 ## 1. Workspace setup
 
 ```bash
@@ -185,49 +164,7 @@ Screen recording of the mapping run (driving the robot with teleop while the map
 in RViz):
 [https://drive.google.com/file/d/1WuFKnmrWrOs0bbKYHbmSBnjDLkmHsBlN/view?usp=drive_link](https://drive.google.com/file/d/1WuFKnmrWrOs0bbKYHbmSBnjDLkmHsBlN/view?usp=drive_link)
 
-## Still to add before submitting
-
-Two checklist items from the assignment aren't captured in this repo yet:
-
-- **TF tree screenshot** showing `map → odom → base_footprint → base_link`. Capture with:
-  ```bash
-  ros2 run rqt_tf_tree rqt_tf_tree
-  # or, for a static image file:
-  ros2 run tf2_tools view_frames
-  ```
-  Save the screenshot into `Screenshots/` and add it above.
-- **Terminal output of `ros2 topic echo /odom`**, pasted into this README, e.g.:
-  ```bash
-  ros2 topic echo /odom
-  ```
-  ```
-  # paste a representative sample of the /odom output here
-  ```
-
-## Expected output
-
-**Mapping phase**
-- `ros2 launch robot_description gazebo.launch.py` opens Gazebo with the robot in the warehouse world, no errors.
-- `ros2 launch slam_toolbox_demo slam_toolbox_online_async.launch.py` starts `slam_toolbox` in mapping mode and configures/activates automatically.
-- `/scan` and `/odom` are publishing; RViz's Map display grows as the robot is driven around.
-- `save_map` / `serialize_map` service calls produce `warehouse_world_map.yaml/.pgm` and `warehouse_world.posegraph/.data`.
-
-**Localization phase**
-- `ros2 launch slam_toolbox_demo localization.launch.py` loads the saved pose graph and immediately publishes the static map.
-- A wrong 2D Pose Estimate produces a visible mismatch between `/scan` and the map.
-- A correct 2D Pose Estimate aligns the scan with the map walls.
-- Driving afterward keeps the map fixed — only the robot's pose (the `map → odom` transform) changes.
-
-## Known limitations
-
-- `slam_toolbox_localization.yaml`'s `map_file_name` is an absolute path from the author's
-  original machine/container and **must be edited per environment** (see the warning above).
-- `robot_description/package.xml` and `slam_toolbox_demo/package.xml` don't declare
-  `exec_depend`s for `ros_gz`, `xacro`, `slam_toolbox`, or `teleop_twist_keyboard` — install
-  them manually as shown in [Prerequisites](#prerequisites) rather than relying on `rosdep`.
-- Uses the AWS RoboMaker small warehouse world + a custom two-wheel robot instead of
-  `turtlebot3_world`/TurtleBot3 (see [Adaptation note](#adaptation-note)).
 
 ## Author
 
-Ahmed Shalash — [github.com/Shalash500/slam_mapping_localization_ahmed_shalash](https://github.com/Shalash500/slam_mapping_localization_ahmed_shalash)
+Ahmed Shalash
