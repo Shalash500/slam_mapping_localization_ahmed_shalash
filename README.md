@@ -144,6 +144,7 @@ Drive the robot around and confirm the map stays fixed while only the robot's po
 | | |
 |---|---|
 | ![Gazebo warehouse world](Screenshots/gazebo_world.png) | Robot spawned in the AWS RoboMaker warehouse world in Gazebo. |
+| ![TF tree](Screenshots/TF_tree.png) | TF tree showing the robot's frame hierarchy (`map` → `odom` → `base_link` → sensor frames). |
 | ![Robot driving while mapping](Screenshots/robot_movement_whileMmapping.png) | Driving the robot with keyboard teleop during mapping. |
 | ![Mapping in progress 1](Screenshots/mapping%201.png) | Occupancy grid building up in RViz (1/5). |
 | ![Mapping in progress 2](Screenshots/mapping%202.png) | Occupancy grid building up in RViz (2/5). |
